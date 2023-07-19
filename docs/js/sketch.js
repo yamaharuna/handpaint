@@ -65,6 +65,7 @@ function setup() {
 
   let p5canvas = createCanvas(400, 400);
   p5canvas.parent('#canvas');
+  
 
   // お手々が見つかると以下の関数が呼び出される．resultsに検出結果が入っている．
   // お手々が見つからない場合はresultsはundefinedになる．
@@ -79,6 +80,7 @@ function setup() {
     }
   }
 }
+
 
 function draw() {
   // 描画処理
