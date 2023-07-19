@@ -109,7 +109,7 @@ function draw() {
   // キャンバスに枠をつける
   noFill();
   stroke(0);
-  strokeWeight(2);
+  strokeWeight(1);
   rect(0, 0, width, height);
 }
 
