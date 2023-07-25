@@ -2,70 +2,30 @@
 let hr;
 let shapes = [];
 let img;
-
-
-
+let currentImage = 1; 
 // ゲームの状態を表す定数
 const GAME_STATE_TITLE = 0;
 const GAME_STATE_PLAYING = 1;
-//const GAME_STATE_GAMEOVER = 2;
-
-// 自機の位置とサイズ
-//let playerX, playerY;
-//const playerSize = 40;
-
-// ミサイルの位置とサイズ
-//let missileX, missileY;
-//const missileSize = 10;
-//let missileSpeed = 5;
-//let missileActive = false;
-
-// 敵機の位置とサイズ
-//let enemyX, enemyY;
-//const enemySize = 40;
-//let enemySpeed = 2;
-
-// ゲームのスコアと制限時間
-//let score = 0;
-//const gameTime = 60;
-//let timer;
 
 // ゲームの状態
 let gameState = GAME_STATE_TITLE;
 
-//let sound_bakuhatsu;
-//let sound_missile;
-//let sound_end_bakuhatsu;
-//let bgm_title;
-//let bgm_playing;
-//let bgm_end;
-//function preload() {
-  //sound_bakuhatsu = loadSound('./sound/8bit爆発2.mp3');
- // sound_missile = loadSound('./sound/8bitショット1.mp3');
-  //sound_end_bakuhatsu = loadSound('./sound/8bit爆発1.mp3');
- // bgm_title = loadSound('./sound/Shooting_02.mp3');
-  //bgm_playing = loadSound('./sound/Shooting_01.mp3');
-  //bgm_end = loadSound('./sound/Shooting_05.mp3');
-//}
+
 
 function preload(){
-  img = loadImage('./image/hand.jpg');
+  img1 = loadImage('./image/1.jpg');
+  img2 = loadImage('./image/2.jpg');
+  img3 = loadImage('./image/3.jpg');
 }
 function setup() {
   // 画像を読み込む
   
 
-  //sound_bakuhatsu.setVolume(0.3);
-  //sound_missile.setVolume(0.3);
-  //sound_end_bakuhatsu.setVolume(0.5);
-  //bgm_title.setVolume(0.5);
-  //bgm_playing.setVolume(0.5);
-  //bgm_end.setVolume(0.5);
-
+  
 
   let p5canvas = createCanvas(400, 400);
   p5canvas.parent('#canvas');
-  
+ 
 
   // お手々が見つかると以下の関数が呼び出される．resultsに検出結果が入っている．
   // お手々が見つからない場合はresultsはundefinedになる．
@@ -86,7 +46,7 @@ function draw() {
   // 描画処理
   clear();
   noStroke();
-
+  　
   // 各頂点座標を表示する
   // 各頂点座標の位置と番号の対応は以下のURLを確認
   // https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
@@ -114,17 +74,26 @@ function draw() {
 }
 
 function drawTitleScreen() {
+  if (currentImage === 1) {
+    image(img1, 0, 0, width, height);
+  } else if (currentImage === 2) {
+    image(img2, 0, 0, width, height);
+  } else if (currentImage === 3) {
+    image(img3, 0, 0, width, height);
+  }
+}
+function mouseClicked() {
+  // Increment the currentImage counter when the mouse is clicked
+  currentImage++;
   
-  /*fill(0);
-  textAlign(CENTER);
-  textSize(30);
-  text("ジェスチャーアート", width / 2, height / 2);
-  textSize(20);
-  text("Press Space to Start", width / 2, height / 2 + 40);*/
-  image(img,0,0,width,height);
+  // If the counter exceeds 3, reset it to 1 to loop back to the first image
+  if (currentImage > 3) {
+    currentImage = 1;
+  }
 }
 
 function drawGame() {
+  
   // 四角を描画するためのコードを追加してください
   // ジェスチャーの座標やジェスチャーの名前を利用して四角を描画します
   // 四角の位置や色、サイズを自由に設定してください
@@ -139,6 +108,7 @@ function drawGame() {
       if (name === 'left') {
         // ジェスチャーに応じた処理を追加
         let shapeColor = color(random(255), random(255), random(255), random(100));
+        
         let shapeSize = 30;
         let shapeX = landmark.x * width;
         console.log(landmark.x);
@@ -179,6 +149,7 @@ function drawGame() {
   
   for (let shape of shapes) {
     fill(shape.color);
+   
     if (shape.type === 'rectangle') {
       rect(shape.x, shape.y, shape.size, shape.size);
     } else if (shape.type === 'circle') {
@@ -189,22 +160,6 @@ function drawGame() {
       line(shape.startX, shape.startY, shape.endX, shape.endY);}
   }
 }
-
-
-/*function keyPressed() {
-  if (keyCode === 32) {
-    startGame();
-  }
-}
-function keyPressed() {
-  //if (keyCode === 32) {
-    if (gameState === GAME_STATE_PLAYING) {
-      shapes = []; // 四角形を削除
-    } else if (gameState === GAME_STATE_TITLE) {
-      startGame();
-    }
-  }
-}*/
 
 
 function startGame() {
@@ -263,10 +218,3 @@ function adjustCanvas(){
   resizeCanvas(windowWidth, windowWidth);
 
 }
-
-
-
-
-
-
-
