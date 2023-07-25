@@ -82,7 +82,7 @@ function drawTitleScreen() {
     image(img3, 0, 0, width, height);
   }
 }
-function mouseClicked() {
+function touchMoved() {
   // Increment the currentImage counter when the mouse is clicked
   currentImage++;
   
@@ -90,6 +90,8 @@ function mouseClicked() {
   if (currentImage > 3) {
     currentImage = 1;
   }
+  // スワイプ時のデフォルトのスクロール動作を防止
+  return false;
 }
 
 function drawGame() {
