@@ -105,15 +105,7 @@ function touchStarted() {
   }, 1000); // 1秒の待機時間を指定
 }
 
-function mouseClicked() {
-  // Increment the currentImage counter when the mouse is clicked
-  currentImage++;
-  
-  // If the counter exceeds 3, reset it to 1 to loop back to the first image
-  if (currentImage > 3) {
-    currentImage = 1;
-  }
-}
+
 
 
 function drawGame() {
