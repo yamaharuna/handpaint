@@ -10,9 +10,6 @@ const GAME_STATE_PLAYING = 1;
 // ゲームの状態
 let gameState = GAME_STATE_TITLE;
 let touchInProgress = false;
-const maxImages = 3;
-let startX = 0;
-let startY = 0;
 
 
 
@@ -88,48 +85,21 @@ function drawTitleScreen() {
 }
 
 
-
 function touchStarted() {
   if (touchInProgress) {
     return;
   }
 
   touchInProgress = true;
-  startX = touchX;
-  startY = touchY;
-  setTimeout(() => {
-    touchInProgress = false;
-  }, 1000); // 1秒の待機時間を指定
-}
 
-function touchEnded() {
-  if (touchInProgress) {
-    return;
+  // ここにクリック時の処理を記述する
+  currentImage++;
+  
+  if (currentImage > 3) {
+    currentImage = 1;
   }
 
-  touchInProgress = true;
-  const endX = touchX;
-  const endY = touchY;
-  const deltaX = endX - startX;
-  const deltaY = endY - startY;
-
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    // 水平方向の移動が大きい場合
-    if (deltaX > 0) {
-      // 右にスワイプした場合
-      currentImage++;
-      if (currentImage > maxImages) {
-        currentImage = 1;
-      }
-    } else {
-      // 左にスワイプした場合
-      currentImage--;
-      if (currentImage < 1) {
-        currentImage = maxImages;
-      }
-    }
-  }
-
+  // タッチの処理が完了したら、次のタッチまで待機
   setTimeout(() => {
     touchInProgress = false;
   }, 1000); // 1秒の待機時間を指定
@@ -138,9 +108,6 @@ function touchEnded() {
 
 function drawGame() {
   
-  // 四角を描画するためのコードを追加してください
-  // ジェスチャーの座標やジェスチャーの名前を利用して四角を描画します
-  // 四角の位置や色、サイズを自由に設定してください
   if (hr && hr.landmarks) {
     for (const landmarks of hr.landmarks) {
       let gesture = hr.gestures[0][0];
@@ -167,7 +134,7 @@ function drawGame() {
         console.log(name, score);
   
         if (name === 'shoot') {
-          // ジェスチャーが "shoot" の場合、四角を描画
+          // 四角を描画
           let shapeColor = color(random(255), random(255), random(255), random(50));
           let shapeSize = 30;
           let shapeX = landmark.x * width - shapeSize / 2;
@@ -176,7 +143,7 @@ function drawGame() {
           let shape = { x: shapeX, y: shapeY, size: shapeSize, color: shapeColor, type: 'rectangle' };
           shapes.push(shape);
         } else if (name === 'up') {
-          // ジェスチャーが "down" の場合、円を描画
+          // 円を描画
           let shapeColor = color(random(255), random(255), random(255), random(100));
           let shapeSize = 10;
           let shapeX = landmark.x * width;
@@ -262,4 +229,3 @@ function adjustCanvas(){
   resizeCanvas(windowWidth, windowWidth);
 
 }
-
