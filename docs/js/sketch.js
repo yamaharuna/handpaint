@@ -87,8 +87,8 @@ function touchStarted() {
   currentImage++;
   
   // If the counter exceeds 3, reset it to 1 to loop back to the first image
-  if (currentImage > 2) {
-    currentImage--;
+  if (currentImage > 3) {
+    currentImage = 1;
   }
   // スワイプ時のデフォルトのスクロール動作を防止
   return false;
