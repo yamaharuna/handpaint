@@ -10,6 +10,9 @@ const GAME_STATE_PLAYING = 1;
 // ゲームの状態
 let gameState = GAME_STATE_TITLE;
 let touchInProgress = false;
+const maxImages = 3;
+let startX = 0;
+let startY = 0;
 
 
 
@@ -83,16 +86,7 @@ function drawTitleScreen() {
     image(img3, 0, 0, width, height);
   }
 }
-/*function touchStarted() {
-  // Increment the currentImage counter when the mouse is clicked
-  currentImage++;
-  
-  // If the counter exceeds 3, reset it to 1 to loop back to the first image
-  if (currentImage > 3) {
-    currentImage = 1;
-  }
- 
-}*/
+
 
 
 function touchStarted() {
@@ -101,15 +95,41 @@ function touchStarted() {
   }
 
   touchInProgress = true;
+  startX = touchX;
+  startY = touchY;
+  setTimeout(() => {
+    touchInProgress = false;
+  }, 1000); // 1秒の待機時間を指定
+}
 
-  // ここにクリック時の処理を記述する
-  currentImage++;
-  
-  if (currentImage > 3) {
-    currentImage = 1;
+function touchEnded() {
+  if (touchInProgress) {
+    return;
   }
 
-  // タッチの処理が完了したら、次のタッチまで待機
+  touchInProgress = true;
+  const endX = touchX;
+  const endY = touchY;
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // 水平方向の移動が大きい場合
+    if (deltaX > 0) {
+      // 右にスワイプした場合
+      currentImage++;
+      if (currentImage > maxImages) {
+        currentImage = 1;
+      }
+    } else {
+      // 左にスワイプした場合
+      currentImage--;
+      if (currentImage < 1) {
+        currentImage = maxImages;
+      }
+    }
+  }
+
   setTimeout(() => {
     touchInProgress = false;
   }, 1000); // 1秒の待機時間を指定
