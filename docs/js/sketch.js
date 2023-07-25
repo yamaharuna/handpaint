@@ -12,6 +12,7 @@ let gameState = GAME_STATE_TITLE;
 
 
 
+
 function preload(){
   img1 = loadImage('./image/1.jpg');
   img2 = loadImage('./image/2.jpg');
@@ -219,3 +220,4 @@ function adjustCanvas(){
   resizeCanvas(windowWidth, windowWidth);
 
 }
+
