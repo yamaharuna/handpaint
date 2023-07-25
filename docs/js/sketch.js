@@ -90,8 +90,7 @@ function mouseClicked() {
   if (currentImage > 3) {
     currentImage = 1;
   }
-  // スワイプ時のデフォルトのスクロール動作を防止
-  return false;
+ 
 }
 
 function drawGame() {
