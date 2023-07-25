@@ -9,7 +9,7 @@ const GAME_STATE_PLAYING = 1;
 
 // ゲームの状態
 let gameState = GAME_STATE_TITLE;
-
+let touchInProgress = false;
 
 
 
@@ -83,7 +83,7 @@ function drawTitleScreen() {
     image(img3, 0, 0, width, height);
   }
 }
-function touchStarted() {
+/*function touchStarted() {
   // Increment the currentImage counter when the mouse is clicked
   currentImage++;
   
@@ -92,7 +92,29 @@ function touchStarted() {
     currentImage = 1;
   }
  
+}*/
+
+
+function touchStarted() {
+  if (touchInProgress) {
+    return;
+  }
+
+  touchInProgress = true;
+
+  // ここにクリック時の処理を記述する
+  currentImage++;
+  
+  if (currentImage > 3) {
+    currentImage = 1;
+  }
+
+  // タッチの処理が完了したら、次のタッチまで待機
+  setTimeout(() => {
+    touchInProgress = false;
+  }, 1000); // 1秒の待機時間を指定
 }
+
 
 function drawGame() {
   
