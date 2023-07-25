@@ -82,7 +82,7 @@ function drawTitleScreen() {
     image(img3, 0, 0, width, height);
   }
 }
-function touchMoved() {
+function touchStarted() {
   // Increment the currentImage counter when the mouse is clicked
   currentImage++;
   
