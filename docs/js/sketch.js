@@ -105,9 +105,6 @@ function touchStarted() {
   }, 1000); // 1秒の待機時間を指定
 }
 
-
-
-
 function drawGame() {
   
   if (hr && hr.landmarks) {
@@ -162,7 +159,6 @@ function drawGame() {
   
   for (let shape of shapes) {
     fill(shape.color);
-   
     if (shape.type === 'rectangle') {
       rect(shape.x, shape.y, shape.size, shape.size);
     } else if (shape.type === 'circle') {
@@ -172,6 +168,7 @@ function drawGame() {
       strokeWeight(shape.thickness);
       line(shape.startX, shape.startY, shape.endX, shape.endY);}
   }
+  
 }
 
 
